@@ -1,0 +1,16 @@
+{
+  "name": "list_locale_box",
+  "version": "0.0.1",
+  "description": "Un server node js pour faire une mini aplication pour gere les box en local",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Batiste B.R.",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.3",
+    "file-system": "^2.2.2",
+    "nodemon": "^2.0.15"
+  }
+}
