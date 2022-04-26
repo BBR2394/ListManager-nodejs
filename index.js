@@ -12,25 +12,54 @@ const express = require('express')
 const app = express()
 var fs = require('file-system');
 
+var cors = require('cors')
+
+let globalvar = 42
+// pour cette putain d'autorisation cors
+app.use(cors());
 //to set body arser to read json in the body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/ressources/list.json');
+    console.log("on a eu un GET")
+    let dataJson = ""
+    const data = fs.readFileSync(__dirname + '/ressources/list.json', 'utf8')
+    console.log(data)
+    let box = JSON.parse(data);
+    console.log(box[0])
+    // fs.readFile(__dirname + '/ressources/list.json', 'json' , (err, data) => {
+    //     if (err) {
+    //       console.error(err)
+    //       return
+    //     }
+    //     dataJson = data;
+    //     console.log(data)
+    //     res.send(dataJson);
+    //   });
+    res.json(box)
+    //res.json(__dirname + '/ressources/list.json');
+    //res.sendFile(__dirname + '/ressources/list.json');
+})
+
+app.get('/debug', (req, res) => {
+    console.log("on a eu un GET debug")
+    res.send([{"name":"toto", "desc": "dfdsghj"},{"name":"titi", "desc":"yuiejn"}])
 })
 
 function myWrite(fileName , txt) {
+    globalvar += 1;
     fs.writeFile(fileName, txt, (err) => {
         if(err) {
             throw err;
         }
         console.log("Data has been written to file successfully.");
     });
+    console.log(globalvar)
 }
 
 app.post('/', (req, res) => {
-    myWrite("ressources/outUn.txt", "bonjour je suis \necrit deuis mon programme")
+    myWrite("ressources/outDeux.txt", "bonjour je suis \necrit deuis mon programme")
     res.send("en cours : pour sauvegarder la liste")
 })
 
