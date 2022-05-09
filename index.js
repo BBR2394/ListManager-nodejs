@@ -62,9 +62,12 @@ app.post('/', (req, res) => {
     myWrite("ressources/outDeux.txt", "bonjour je suis \necrit deuis mon programme")
     res.send("en cours : pour sauvegarder la liste")
 })
-
+ 
 app.put('/', (req, res) => {
-    res.send("en cours")
+    res.send("en cours put")
+
+    console.log(req)
+    res.status(200)
 })
 
 app.listen(port, () => {
