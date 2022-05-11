@@ -3,6 +3,9 @@
  * créé le 18  Mars 2022
  */
 
+// package for the db
+var postgresql = require('pg').Pool;
+
 const port = 5009
 //package used in order to parse the body from a POST request
 // otherwise, exppress doesnt read the body ...
@@ -13,6 +16,17 @@ const app = express()
 var fs = require('file-system');
 
 var cors = require('cors')
+
+/**
+ * postgresql configuration
+ */
+const poolpgsql = new postgresql({
+  user: 'Baptiste',
+  host: 'localhost',
+  database: '',
+  password: '',
+  port: 5432,
+})
 
 let globalvar = 42
 // pour cette putain d'autorisation cors
@@ -63,6 +77,13 @@ app.post('/', (req, res) => {
     res.send("en cours : pour sauvegarder la liste")
 })
  
+app.post('/', (req, res) => {
+    res.send("en cours POST")
+    
+    console.log(req)
+    res.status(200)
+})
+
 app.put('/', (req, res) => {
     res.send("en cours put")
 
